@@ -1,0 +1,70 @@
+The basic project structure has been generated from the Cordova utility. The idea was to build a hybrid app for web/android
+/ios/windows which is going to be a single source responsive app targetting multiple platforms and browsers. 
+
+High level architecture:
+
+top to bottom,
+Web layer ( Bootstrap to build UI widgets, angularjs for SPA structure and models) -- Nodejs web server for web app
+API layer (Nodejs + MongoDB)
+Apache cordova (create platform specific app packages)
+---------------------------------------------------------------------------
+Directory and file structure:
+
+1. For web application that runs on nodejs web server(express)
+-server.js - to spin up the web process on the port 5000 
+-www/js/modules/app.js -- definition of angularjs modules, all the modules to be listed here
+-www/js/modules/router.js -- definition of view routing
+-www/js/modules/<modulename>/controllers - to store angularjs ontrollers specific to the module
+-www/js/modules/<modulename>/views - mark up HTMls for the coresponding module
+-www/js/modules/<modulename>/common - all common views and controllers that have to be shared across modules
+-www/js/modules/common - common services, directives, constants
+-www/js/config - config entries especially to configure API URI's and chose an environment like, local/test/prod
+-node_modules - nodejs supporting libraries 
+-package.json - nodejs configuraition file
+-www/js/libs - angularjs and jquery supporting libraries
+-www/js/css - CSS3 stylesheets
+-www/js/img - all static images related to the application
+- also there are online CDN references to get google charts/maps/images and angularjs routing API's etc.
+
+2. For mobile specific apps that would run on specific mobile platforms
+-config.xml - mobile app release related configurations
+-www - store htmls, scripts, styles, rest all remains same as web
+-plugins - store mobile platform related plugins
+-platforms - mobile platform building support files and pckages
+-hooks - mobile app related 
+-platforms/<platform>/res - app icons are placed here
+-setup local platforms to build and deploy apps: 
+	please follow the steps in this url, https://cordova.apache.org/docs/en/latest/guide/cli/
+-once cordova, android sdk and gradles are installed and the environment variable is created, your can build the app
+	using the commands,
+-$cordova platform add android --save
+-$cordova build androd --- this command will build the app in debug mode
+-Build the app in release mode, use the following command to make the app ready to be published
+
+Create a key store:
+keytool -genkey -v -keystore starlly-owner-app.keystore -alias starllyadmin -keyalg RSA -keysize 2048 -validity 10000
+keytool should be available in JAVA root/tools
+Follow the instructions by providing details, remember keystore passowrd, alias, alias password which you need while signing the app.
+
+Sign the app using the keystore:
+Command format:
+$cordova run android --release -- --keystore=../my-release-key.keystore --storePassword=password --alias=alias_name --password=password
+Example:
+$cordova run android --release -- --keystore="parlours-platform-app.Keystore" --storePassword=4Starlly# --alias=starllyadmin --password=4Starlly#
+P:S: place the keystore file in the root path where your www directory is placed in my case, starlly.admin.webapp
+---------------------------------------------------------------------------
+Sequencing the scripts loading for the proper view routing, this could be nasty if not in sequence.
+<body>
+<script type="text/javascript" src="js/modules/app.js"></script> -- load app.js first as modules to be loaded first
+<script type="text/javascript" src="js/modules/routes.js"></script> -- load routers second
+<script type="text/javascript" src="js/modules/login/controllers/login.js"></script> -- load all controller scripts sub sequently
+<script type="text/javascript" src="js/modules/profile/controllers/profile.js"></script>
+<body>
+
+Load angular libraries in the header section,
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
+<head>
+---------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,370 @@
+/************************************************************ RESET CSS3 ************************************************************/
+html, body, div, span, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video 
+{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;position:relative;}
+
+ol, ul {list-style:none;}
+ol { list-style-type:decimal;}
+
+blockquote, q { quotes:none;} 
+blockquote:before, blockquote:after, q:before, q:after { content:'';content:none;}
+
+a {margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;white-space:nowrap;}
+a img {border:0}
+figure {position:relative} 
+
+abbr[title], dfn[title] {/* border-bottom:1px dotted;*/ cursor:help;}
+abbr {border:none;}
+abbr[title="and"] {font-style:italic;border:none;font-family:Baskerville, "Baskerville old face", Garamond, "Times New Roman", serif;}
+
+img, video, object {max-width:100%;height:auto;}
+
+table {border-collapse:collapse;border-spacing:0;}
+hr {display:none;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0;}
+
+input, select {vertical-align:middle;}
+
+/* webkit browsers add a 2px margin outside the chrome of form elements */
+select, input, textarea, button {font-family:"Arial", Helvetica, sans-serif;margin:0;}
+pre, code, kbd, samp {font-family:Arial, Tahoma, sans-serif;font-size:1em;}
+
+html {-ms-overflow-style:scrollbar;overflow-x:hidden;}
+a:hover, a:active, a:focus { outline:none;text-decoration:none;} /* Accessible focus treatment:people.opera.com/patrickl/experiments/keyboard/test */
+
+nav ul, nav li { margin:0;list-style:none;} /* Remove margins for navigation lists */
+
+small {font-size:0.923076923076923em;}
+strong, th {font-weight:bold;}
+
+td, td img {vertical-align:top;}
+
+sub, sup {color:#f00;font-weight:bold;font-size:1.15384615384615em;padding-left:0.1em;}
+
+pre {white-space:pre-line;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;}
+
+textarea {overflow:auto;}
+.ie6 legend, .ie7 legend {margin-left:-7px;}
+
+input[type="radio"] {vertical-align:text-bottom;outline-style:none;}
+input[type="checkbox"] { vertical-align:text-bottom;}
+.ie7 input[type="checkbox"] {vertical-align:baseline;}
+.ie6 input {vertical-align:text-bottom;}
+
+label, input[type=button], input[type=submit], button {cursor:pointer;}
+
+button { width:auto;overflow:visible;}
+
+/* colors for form validity */
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid {color:#ff1e00;}
+
+
+/* These selection declarations have to be separate.*/
+::-moz-selection{ background:#d5d5d5;color:#000;text-shadow:none;}
+::selection { background:#d5d5d5;color:#000;text-shadow:none;}
+
+/*  webkit-tap-highlight-color */
+a:link { -webkit-tap-highlight-color:#beeaf0;}
+
+/* bicubic resizing for non-native sized IMG:
+   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
+.ie7 img { -ms-interpolation-mode:bicubic;}
+
+.divide  {padding-top:1em;border-top:1px solid #d5d5d5;margin-top:1em;}
+.no-divide, .home section h2.no-divide {padding:0;border:none;}
+
+/* Hiding things
+----------------------------------------------------------------*/
+/* for image replacement */
+.ir { display:block;text-indent:-999em;overflow:hidden;background-repeat:no-repeat;text-align:left;direction:ltr;}
+
+/* Hide for both screenreaders and browsers
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display:none;visibility:hidden;height:0;width:0;}
+
+/* Hide only visually, but have it available for screenreaders
+   www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden  */
+.visuallyhidden { position:absolute !important;
+  clip:rect(1px 1px 1px 1px);/* IE6, IE7 */
+  clip:rect(1px, 1px, 1px, 1px);}
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility:hidden;}
+
+/************************************************************ RESET MOBILE ************************************************************/
+*, *:before, *:after {
+  /* suppressing the tap highlight */
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+
+  /* this is a personal preference */
+  box-sizing:border-box;
+  vertical-align:top;
+  padding:0;
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+
+*:focus {
+  /* the default outline doesn't play well with a mobile application, 
+     I usually start without it,
+     but don't forget to research further to make your mobile app accessible. */
+  outline:0;
+}
+
+input {
+  border-radius:0;
+}
+
+html, body {
+  /* we don't want to allow users to select text everywhere,
+     you can enable it on the places you think appropriate */
+  //-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;user-select:none;
+}
+
+
+
+/************************************************************ COMMONS ************************************************************/
+/* slightly enhanced, universal clearfix hack */
+.clearfix:after {visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix { display:inline-block;}
+/* start commented backslash hack \*/
+* html .clearfix { height:1%;}
+.clearfix { display:block;}
+/* close commented backslash hack */
+
+
+.left {float:left;}
+.right {float:right;}
+
+/* Arrows
+----------------------------------------------------------------*/    
+.up_arrow {width:0;height:0;border-bottom:5px solid #666;border-right:5px solid transparent;border-left:5px solid transparent;content:"";}
+.down_arrow {width:0;height:0;border-top:5px solid #666;border-right:5px solid transparent;border-left:5px solid transparent;content:"";}
+.left_arrow {width:0;height:0;border-left:5px solid #666;border-top:5px solid transparent;border-bottom:5px solid transparent;content:"";}
+.right_arrow {width:0;height:0;border-right:5px solid #666;border-top:5px solid transparent;border-bottom:5px solid transparent;content:"";}
+
+/* Bodys
+----------------------------------------------------------------*/
+html {-webkit-font-smoothing:antialiased;width:100%;}
+body {background:#f2f2f2;text-rendering:optimizeLegibility;text-rendering:geometricPrecision;/* need to re-read about this setting */font-size:100%;line-height:1.5em;font-family:"Helvetica Neue", Helvetica, sans-serif;height:100%;color:#404040;width:100%;}
+.wrapper {width:100%;height:100%;padding:0;margin:0;overflow:hidden;position:relative;}
+
+[page] {}
+.pageImage {height:100%;width:100%;max-height:1000px;max-width:600px;}
+
+/*md-toolbar *, md-toolbar :after, md-toolbar :before {
+    box-sizing: border-box;
+    background-color: #282C35;
+}*/
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    /*background-color: #ee5786 !important;*/
+    /*color: rgb(255,250,250);*/
+    height: 100px;
+    background: #ee5786; /* For browsers that do not support gradients */        
+    background: -webkit-linear-gradient(0deg, #ee5786, #cc33ff); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(0deg, #ee5786, #cc33ff); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(0deg, #ee5786, #cc33ff); /* For Firefox 3.6 to 15 */
+    /*background: linear-gradient(0deg, #ff80bf, #cc33ff); /* Standard syntax (must be last) */*/
+    background: linear-gradient(0deg,  #4d0026, #4d004d); /* Standard syntax (must be last) */
+}
+.toolbar-forecolour{
+  color: #F8F8FF;
+  vertical-align: middle;
+}
+/*setting tabs background colour*/
+md-tabs.md-default-theme.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]), md-tabs.md-hue-2.md-primary > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+    /*color: rgb(255,250,250) !important;*/
+    background-color: rgb(255,250,250) !important;
+     color: rgb(0,0,0);
+     text-transform: none !important;
+}
+
+/*setting active tab text colour*/
+.md-tab.md-active {
+     color: #e51153 !important;
+     font-weight: bold;
+}
+
+/*setting the ink line colour of active tab*/
+md-tabs.md-default-theme.md-hue-2 md-ink-bar, md-tabs.md-hue-2 md-ink-bar {
+    background: #ff76aa !important;
+    color: #e51153 !important;
+    text-transform: none !important;
+}
+
+md-backdrop.md-sidenav-backdrop {
+    z-index: 95 !important;
+}
+
+md-devider.vertical-divider {
+  border-top-width: 0;
+  border-right-width: 1px;
+  border-right-style: solid;
+  height: 100%;
+}
+
+.md-button {
+  text-transform: none !important;
+}
+
+body {
+    font-family: "Aqleema-Regular",Helvetica,Arial,sans-serif !important;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    text-transform: none !important;
+}
+
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #808080;
+  text-align: center;
+  font-size: 0.8em;
+  color: #e6e6e6;
+  vertical-align: middle;
+  
+}
+.btnSignin{
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #673ab7;
+    border-radius: 3px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.contentpage-container{
+  background-color: #feedf6;
+  text-align: center;
+}
+
+.login-container {
+  max-width:50%;
+}
+
+.login-button {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 162px;
+    padding-left: 18%;
+    position: relative;
+    font-size: 13px;
+    font-weight: 500;
+    color: #696b79;
+    height: 50px;
+    border: 1px solid #bfc0c6;
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: left;
+}
+
+
+.login-title {
+    font-size: 32px;
+    margin-top: 15px;
+    color: #535766;
+}
+
+.login-button-info-text {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.login-info-text {
+    color: #94969f;
+    font-size: 12px;
+}
+
+.center-cropped {
+  width: 100%;
+  height: 16em;
+
+  background-size:contain;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-position: center center;
+  position:relative;
+  
+}
+
+.btn_fb{
+  margin: 15px 0 10px 0;
+  padding: auto;
+  cursor: pointer;
+  width: 140px;
+  height: 30px;
+  background: #39579a;
+  color: white;
+  font-size: 14px;
+  display: inline-flex;
+}
+.fb_icon{
+  border-right: 1px solid #333;
+    padding: 5px;
+}
+.fb_txt{
+  padding: 5px 20px;
+}
+.btn_gplus{
+  margin: 15px 0 10px 0;
+  padding: auto;
+  cursor: pointer;
+  width: 140px;
+  height: 30px;
+  background: #df4a32;
+  color: white;
+  font-size: 14px;
+  display: inline-flex;
+}
+.gplus_icon{
+  border-right: 1px solid #333;
+    padding: 5px;
+}
+.gplus_txt{
+  padding: 5px 20px;
+}
+
+.register-register-button {
+    background-color: #ff527b;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 15px;
+    display: block;
+    width: 100%;
+    border: 0;
+    text-transform: uppercase;
+    border-radius: 3px;
+    font-family: Whitney;
+}
+
+.register-link-container {
+    text-align: left;
+    padding: 20px;
+}
+.register-login-link {
+    text-align: center;
+}
+.register-info-text {
+    color: #94969f;
+    font-size: 12px;
+}
+.register-create-account-link {
+    margin-left: 5px;
+}
+.register-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: #ff527b;
+    padding: 10px 0;
+    font-size: 13px;
+}

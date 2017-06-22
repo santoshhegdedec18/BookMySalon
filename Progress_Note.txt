@@ -1,0 +1,22 @@
+What is on offer?
+----------------------------------
+1. A hybrid mobile app framework (SPA) consisting of the basic project structure with all the techincal layers functioning.
+2. Basic navigation structure with left nav, tool bar and a view routing mechanism.
+3. A complete modular design containing views, models, and controllers.
+4. API's to perform CRUD operations
+5. Basic, styles, themes
+6. User login/signup feature consisting of OAuth (Facebook, Google) and email/password.
+7. Capability to generate adndroid mobile app from the commandline.
+8. Persist the user login details in client session object
+9. Exception handling and logging
+
+What is to be done?
+--------------------------------------
+1. Application security
+2. IOS package
+3. Email verification of user login
+
+Known bugs
+------------------------
+1. Google login needs users to be already logged in to their gmail in the browser
+2. Facebook logout fetches bak the status 'unknown' that will cause issues in loggin in next time 

@@ -1,0 +1,160 @@
+<md-content class="contentpage-container" layout="column" layout-align="center center">
+	<md-card class="login-container" layout-align="center">
+		<md-card-content>
+			<div ng-hide="registerMode"> <p class="login-title">Login to Parlours Platform </p> </div>
+			<div ng-show="registerMode"> <p class="login-title">Register with Parlours Platform </p> </div>
+			<div> <p class="login-button-info-text login-info-text"> - EASILY USING - </p> </div>
+			<div layout="row" layout-xs="column" layout-align="center center">
+				<div flex="50">
+					<div class="btn_fb" scope="public_profile,email" ng-click="loginFromFB()">
+                        <div class="fb_icon" ><img src="../img/fb.png" width="15px" height="20px"></div>
+                        <div class="fb_txt">Facebook </div>
+                    </div>
+                  <!--   <fb:login-button scope="public_profile,email" onlogin="loginFromFB()">
+					</fb:login-button> -->
+				</div>
+				<div flex="50">
+                    <div class="btn_gplus" data-onsuccess="onSignIn" ng-click="loginFromGoogle()">
+                        <div class="gplus_icon"><img src="../img/g+.png" width="15px" height="20px"></div>
+                        <div class="gplus_txt">Google+</div>
+                    </div>
+                    
+                    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="display:none;"> Google Sign In</div>
+                    <!-- <div class="g-signin2" ng-click="onSignIn" data-theme="dark"> Google Sign In</div> -->
+				</div>
+			</div>
+			<div >
+			 <p class="login-button-info-text login-info-text"> - OR USE EMAIL - </p>
+			</div>
+			<!-- below section is for login -->
+			<div ng-hide="registerMode">
+				<form name="loginForm" layout="column">
+					<md-input-container>
+					<label> Email </label>
+					   <input required type="email" ng-model="signUpInfo.email" name="email" minlength="5" maxlength="100"  ng-pattern="/^.+@.+\..+$/" />
+                          <div   ng-show="loginForm.email.$error.required" ng-message="required">
+                           </div>
+                          <div  ng-show="loginForm.email.$error.email" ng-message="pattern">
+                                Should be a valid email address
+                          </div>
+					</md-input-container>
+					<md-input-container>
+					  <label>Password</label>
+					  <input type="password" ng-model="signUpInfo.password" name="password" required md-maxlength="10" minlength="4">
+					   <div   ng-show="loginForm.password.$error.required" ng-message="required">
+                        </div>
+					</md-input-container>
+					<button class="register-register-button" ng-click="validateEmailLogin(loginForm)"> Login </button>
+				</form>
+				<div class="register-link-container" layout="row">
+					<div class="register-login-link" flex="20">
+						<a class="register-create-account-link register-link" href="#/forgot/">Forgot Password?</a>
+					</div>
+					<div flex="10"> </div> 
+					<div class="register-login-link" flex="70">
+						<span class="register-info-text">New to Parlours Platform?</span>
+						<a class="register-create-account-link register-link" href="#/signup/register">Register!</a>
+					</div> 
+				</div>
+			</div>
+			<!-- below section is for sign up -->
+			<div ng-show="registerMode">
+				<form name="signupForm" layout="column" >
+					<div layout="row">
+						<md-input-container>
+							<label> First Name</label>
+						    <input required type="text" ng-model="signUpInfo.first_name" name="first_name" maxlength="30" />
+	                          <div   ng-show="signupForm.first_name.$error.required" ng-message="required">
+	                           </div>
+						</md-input-container>
+						<md-input-container>
+							<label> Last Name</label>
+						    <input required type="text" ng-model="signUpInfo.last_name" name="last_name" maxlength="30" />
+	                          <div   ng-show="signupForm.last_name.$error.required" ng-message="required">
+	                           </div>
+						</md-input-container>
+					</div>
+					<md-input-container>
+					<label> Your Email Address </label>
+					   <input required type="email" ng-model="signUpInfo.email" name="email" minlength="5" maxlength="100"  ng-pattern="/^.+@.+\..+$/" />
+                          <div   ng-show="signupForm.email.$error.required" ng-message="required">
+                           </div>
+                          <div  ng-show="signupForm.email.$error.email" ng-message="pattern">
+                                Should be a valid email address
+                          </div>
+					</md-input-container>
+					<md-input-container>
+					  <label>Choose Password</label>
+					  <input type="password" ng-model="signUpInfo.password" name="password" required md-maxlength="10" minlength="4">
+					   <div   ng-show="signupForm.password.$error.required" ng-message="required">
+                        </div>
+					</md-input-container>
+					<md-input-container>
+					  <label>Mobile Number (For booking status updates)</label>
+					  <input required type="number" name="contactNumber" ng-model="signUpInfo.phone" maxlength="10" minlength="10"/>
+                        <div ng-messages="signupForm.contactNumber.$error">
+                             <div ng-if="signupForm.contactNumber.$error.required" ng-message="required"></div>
+                             <div ng-if="signupForm.contactNumber.$error.minlength" ng-message="minlength">Phone No should be 10 digit</div>
+                             <div ng-if="signupForm.contactNumber.$error.maxlength" ng-message="maxlength">Phone No should be 10 digit</div>
+                        </div>
+					</md-input-container>
+					<form>
+					
+						<div layout="row">
+						I am: 
+							<br/>
+							<input type="radio" ng-model="signUpInfo.gender" value="m" />Male 
+							<br/>
+							<input type="radio" ng-model="signUpInfo.gender" value="f" />Female
+						</div>
+					</form>
+					<br/>
+					<button class="register-register-button" ng-click="createUserFromEmail(signupForm)"> Register </button>
+				</form>
+				<div class="register-link-container">
+					<div class="register-login-link">
+						<span class="register-info-text">Already have an account?</span>
+						<a class="register-create-account-link register-link" href="#/signin/login">Login!</a>
+					</div> 
+				</div>
+			</div>
+		</md-card-content>
+	<md-card>
+</md-content>
+        <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+         <script src="https://apis.google.com/js/api.js"></script>
+          <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+
+<!--  <script>
+
+      function onSignIn(googleUser) {
+        var userInfo = {
+        	id : '',
+        	name : '',
+        	first_name : '',
+        	last_name : '',
+        	email : '',
+        	pic_url : ''
+        };
+
+        var profile = googleUser.getBasicProfile();
+
+         userInfo.id = profile.getId();
+         userInfo.name = profile.getName();
+         userInfo.first_name = profile.getGivenName();
+         userInfo.last_name = profile.getFamilyName();
+         userInfo.email = profile.getEmail();
+         userInfo.pic_url = profile.getImageUrl();
+         scopeHolder = userInfo;	
+        
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </script> -->
+
+   
+
+ 

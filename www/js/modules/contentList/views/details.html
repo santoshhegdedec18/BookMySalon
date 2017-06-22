@@ -1,0 +1,212 @@
+
+<div flex layout="row" layout-xs="column">
+<!-- slider container -->
+	<md-card flex-gt-xs="50" layout="column" >
+		<div class="fontsize-large font-bold black-text title-bar"> 
+          	{{business.bizName}} 
+        </div>
+		<div flex  class="gallery"   ng-repeat="photo in business.pictures_gallery_urls" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" style="padding: 10px 10px 25px 10px;">
+			<img ng-src="{{photo}} " />
+			<!-- prev / next controls -->
+			<a class="arrow next"  ng-click="showPrev()"></a>
+			<a class="arrow prev"  ng-click="showNext()"></a>
+			<div  class="details_rating" ng-show="business.rating_doc.length>0" > {{calculateAverage(business.rating_doc)}} <span style="opacity: 0.5; font-size: 24px;">/5 </span></span></div>
+		<!-- extra navigation controls -->
+			<ul class="nav" layout="row">
+				<li ng-repeat="photo in business.pictures_gallery_urls" ng-class="{'active':isActive($index)}">
+					<img src="{{photo}}"  ng-click="showPhoto($index);" />
+				</li>
+			</ul>
+		</div>
+		<div class="horizontal-divider" > </div>	
+	</md-card> 
+	<md-card flex-gt-xs="50" >  
+		<div style="padding: 10px 10px 10px 10px;">
+            <div class="fontsize-medium font-bold black-text title-bar"> 
+            	 Address 
+            </div>
+            <div layout="column">
+              <span class="fontsize-large font-bold black-text">{{business.bizName}}</span>
+              <span class="nowrap fontsize-medium grey-text to-uppercase"> {{business.locality}} </span>
+            </div>
+            <div layout="row">
+                <span class="nowrap fontsize-medium grey-text"> {{business.address1}} </span> &nbsp;
+              <span class="nowrap fontsize-medium grey-text"> {{business.address2}} </span> &nbsp;
+                <span class="nowrap fontsize-medium grey-text"> {{business.city}} </span>
+            </div>
+
+            <div class="details-sub-title fa fa-mobile"> 
+            	<span class="phone"> {{business.phone}}</span>
+            </div>
+            <md-divider> </md-divider>
+             <div  class="fontsize-medium font-bold black-text title-bar"> 
+            	Service Type
+            </div>
+            <div layout="row">
+                <div ng-repeat="type in business.biz_type" >
+                    <span class="nowrap fontsize-medium grey-text ">{{type.name}}</span> ,
+                </div>
+            </div>
+            <div class="horizontal-divider"> </div>
+            <div layout="row"> 
+            	<p  class="nowrap fontsize-medium grey-text fa fa-location-arrow"> Location map </p> <a href="#" class="fa fa-map-marker" style="padding: 5px 0px 0px 25px; "> Click here to get directions</a>
+            </div>
+            <div> 
+            	 <img ng-src="{{staticMapURl}} " />
+            </div>
+             <div class="horizontal-divider"> </div>
+            
+            
+          </div>
+	</md-card>
+</div>
+<div flex layout="row" layout-xs="column" >
+	<md-card flex-gt-xs="50" style="position: relative;">
+		<div  class="fontsize-medium font-bold black-text title-bar">Business hours</div>
+		<div layout="row" >
+			<div flex="50">
+				 <button style="width: 200px;" type="submit" class="book-your-service" ng-click="">Book Your Service </button>
+				<button type="button" class="btn btn-primary disabled btn-lg" ng-hide="opened"> Closed for bookings</button>
+			</div>
+		</div>
+		<md-card-content>
+			<div class="panel panel-default">
+				<div layout="row">
+				    <div class="panel-heading" flex="30">
+				      <h4 class="panel-title">
+				        <i data-toggle="collapse" href="#70291516059420">
+				          <a style="cursor: pointer; cursor:hand;"> 
+				          <span class="fa fa-arrow-circle-right fontsize-medium font-bold" ng-show="collapsed" ng-click="collapsed=false"> See all days</span>
+				          <span class="fa fa-arrow-circle-down fontsize-medium font-bold" ng-hide="collapsed" ng-click="collapsed=true"> See all days</span>
+				          </a>
+				        </i>
+				      </h4>
+					 </div>
+					 <div layout="column" flex="70" style="padding: 10px;"> 
+						<span  ng-repeat="today in business.business_hours | filter : {weekday: today}" >
+						<div ng-hide="today.is_holiday">	<p class="details-services"> <b>Open Today - </b> {{today.weekday}}  {{today.start_time | date: 'HH:mm a'}} <span> To </span> {{today.end_time | date: 'HH:mm a'}} </p> </div>
+						<div ng-show="today.is_holiday"> <b> Closed Today - </b> {{today.weekday}}  </div>
+						</span>
+					</div>
+				</div>
+				 <div id="70291516059420" class="panel-collapse collapse">
+				      {{collapse}}
+				      <div class="panel-body" layout-align="center center">
+						 <md-table-container ng-show="business.business_hours.length > 0" >
+                          <table md-table  md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+                             <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                              <tr md-row>
+                                <th md-column md-order-by="weekday" ><span class="fnt">Week Day</span></th>
+                                <th md-column md-order-by="start_time"><span class="fnt">Start Time</span></th>
+                                <th md-column md-numeric md-order-by="End Time" md-desc><span class="fnt">End Time</span></th>
+                                <th md-column md-numeric md-order-by="is_holiday"><span class="fnt">Holiday</span></th>
+                              </tr>
+                            </thead>
+                            <tbody md-body >
+                            <tr md-row md-select="" md-on-select=""  ng-repeat="daydetails in business.business_hours | orderBy:'weekday'">
+                                <td md-cell >{{daydetails.weekday }}</td>
+                                <td md-cell>{{daydetails.start_time | date:'HH:mm'}}</td>
+                                <td md-cell>{{daydetails.end_time | date:'HH:mm'}}</td>
+                                <td md-cell>{{daydetails.is_holiday ? 'Yes' : 'No'}} </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </md-table-container>
+				      </div>
+			    </div>
+			</div>
+		</md-card-content>
+	</md-card>
+	<md-card flex-gt-xs="50">
+		<div  class="fontsize-medium font-bold black-text title-bar"> Rate us </div>	
+		<md-card-content>
+			<div layout="row" >
+			   <div ng-init="rating = star.rating + 1"></div>
+    			<div star-rating rating-value="rating" data-max="5" ng-click="getSelectedRating(rating)"></div>
+			</div>
+		</md-card-content>
+	</md-card>
+</div>
+<div layout="row" layout-xs="column">
+	<md-card flex-gt-xs="50">
+		<div  class="fontsize-medium font-bold black-text title-bar">Services</div>
+		<md-card-content >
+			<div class="outer-container" style="width: 100%;"> 
+				<div ng-repeat="service in business.offered_services" style="float:left; width: 150px;">
+			        <md-chips name="service" md-max-chips="5" >
+				       <md-chip> 
+				          <span class="fa fa-check fontsize-medium black-text" >{{service.name}}</span>
+				       </md-chip>
+				    </md-chips>
+			    </div>
+			</div>
+		</md-card-content>
+	</md-card>
+	<md-card flex-gt-xs="50">
+		<div  class="fontsize-medium font-bold black-text title-bar"> Share on </div>	
+			<md-card-content>
+				<div layout="row">
+					<md-button class="md-fab md-mini" aria-label="Facebook share">
+					  <md-icon class="facebook-share"></md-icon>
+					</md-button>
+					<md-button class="md-fab md-mini" aria-label="Google share">
+					  <md-icon class="google-share"></md-icon>
+					</md-button>
+				</div>
+			</md-card-content>
+	</md-card>
+</div>
+<div  layout="row" layout-xs="column">
+	<md-card flex="100">
+		<div  class="fontsize-medium font-bold black-text title-bar"> Add Reviews </div>	
+		<md-card-content>
+			<div class="panel panel-default">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <i data-toggle="collapse" href="#reviewPanel">
+			          <a style="cursor: pointer; cursor:hand;"> 
+			          <span class="fa fa-arrow-circle-right fontsize-medium font-bold " ng-show="collapsed" ng-click="collapsed=false"> Add a Review</span>
+			          <span class="fa fa-arrow-circle-down fontsize-medium font-bold " ng-hide="collapsed" ng-click="collapsed=true"> Add a Review</span>
+			          </a>
+			        </i>
+			      </h4>
+				 </div>
+				 <div id="reviewPanel" class="panel-collapse collapse">
+				      {{collapse}}
+				      <div class="panel-body" layout-align="center center">
+				      	<form name="frmReview">
+				      		<div >
+			                    <md-input-container class="md-block" >
+			                        <label>Write your review</label>
+			                        <textarea  required minlength="10" maxlength="400" name="review" ng-model="business.reviewDesc" multiline>
+			                        </textarea>
+			                        <div class="error-message-block" err="{{frmReview.review.$error}}" ng-messages="frmReview.review.$error">
+			                            <div ng-if="frmReview.review.$error.required" ng-message="required">This is required</div>
+			                            <div ng-if="frmReview.review.$error.minlength" ng-message="minlength">Min 10 char should be.</div>
+			                            <div ng-if="frmReview.review.$error.maxlength" ng-message="maxlength">Max 400 char</div>	
+			                        </div>
+			                    </md-input-container>
+			                     <button style="width: 200px;" type="submit" class="register-register-button" ng-click="addReview(frmReview);">Submit Review</button>
+			                </div>  
+				      	</form>
+				      </div>
+			    </div>
+			</div>
+		</md-card-content>
+	</md-card>
+</div>
+<div ng-show="business.reviews.length>0">
+	<md-card>
+	<div  class="fontsize-medium font-bold black-text title-bar"> Reviews <span >({{business.reviews.length}})</span></div>	
+		<md-card ng-repeat="review in business.reviews">
+			<md-card-content layout="column">
+				<div > 
+					<img class="img-circle" src="{{review.user_id.user_pic_url}}" ng-show="review.user_id.user_pic_url">
+					<b><span>  {{review.user_id.first_name}}</span> <span> {{review.user_id.last_name}}</span> </b> 
+				</div>
+				<div> {{review.review_content}} </div>
+			</md-card-content>
+		</md-card>
+	</md-card>
+</div>
+

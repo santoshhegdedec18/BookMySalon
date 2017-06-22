@@ -1,0 +1,21 @@
+
+
+
+        <!--**********************************************************************************************************************************-->
+                                                            <!--CAPTCHA AND TERMS AND CONDITIONS-->
+        <!--**********************************************************************************************************************************-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="label-input">Fill the captcha*</label><br/>
+                                <div class="g-recaptcha" data-sitekey="{{captchaSiteKey}}" ng-controller="captchaCtrl"></div>
+                                <md-input-container class="md-block">
+                                    <md-checkbox class="green" name="termsnconditions" ng-model="signup.conditions" aria-label="conditions">I accept the <a href="pages/terms.html"target="_blank">Terms and conditions</a> to use Parlours Platform
+                                   </md-checkbox>
+                                   <div class="error-message-block" ng-messages="signupForm.termsnconditions.$error" style="margin:0">
+                                     <div ng-message="required">Please accept terms and conditions</div>
+                                </div>
+                               </md-input-container>
+                            </div>
+                        </div>
+                       <!-- Google recaptcha -->
+                        <script src='../../../js/libs/venderJS/google.recaptcha.api.js'></script>

@@ -1,0 +1,60 @@
+
+<md-content id="bizResults" class="contentpage-container site-background" layout-align="center center">
+	<div hide-xs hide-sm >
+		<md-card  class="title-card title-background">
+			<md-card-content>
+		       <h2 class="sec2_trend">Most Popular Saloons, Parlours around your area</h2>
+		       <div class=" sec2_trend desc">Explore top  Saloons, Parlours in and around your location.</div>
+	       </md-card-content>
+	    </md-card>
+    </div>
+  	<div  class="outer-container" >
+  		<md-card   class="card"  ng-repeat='business in businessList | filter: searchBiz track by $index' flex>
+  			<md-card-content>
+  				<div class="center-cropped" data-toggle="modal" data-target="#detailsDialog" ng-click="loadBusinessDetails(business)" >
+              <img ng-src="{{business.primary_image_url}} " />
+              <div class="splOfr" style="display:block;">Special Offer <span ng-bind="business.userName"></span>%</div>
+              <div class="rating-block-small rating-text-small" style="display:block;" ng-show="business.rating_doc.length>0" >{{calculateAverage(business.rating_doc)}} </div>
+              <div class="logoNew" style="display:block;" ng-style="{'background-image': 'url({{business.logo_url}})'}" >
+              </div>
+          </div>
+	        <div flex >
+              <div layout="column">
+                <span class="fontsize-large font-bold black-text">{{business.bizName}}</span>
+                <span class="nowrap fontsize-medium grey-text to-uppercase"> {{business.locality}} </span>
+              </div>
+              <div layout="row">
+                <span class="nowrap fontsize-medium grey-text"> {{business.address1}} </span> &nbsp;
+                <span class="nowrap fontsize-medium grey-text"> {{business.address2}} </span> &nbsp;
+                <span class="nowrap fontsize-medium grey-text"> {{business.city}} </span>
+              </div>
+          </div>
+          <md-divider></md-divider>
+          <div layout="row">
+            <div ng-repeat="type in business.biz_type" >
+                <span class="nowrap fontsize-medium grey-text font-italic">, {{type.name}} </span>
+            </div>
+          </div>
+  			</md-card-content>
+  		</md-card>
+  	</div>
+</md-content>
+
+ <!-- Modal dialog to show business details -->
+<div id="detailsDialog" class="modal fullscreen-modal fade" role="dialog"  tabindex="-1" aria-labelledby="myModalLabel">
+ <div class="modal-dialog" role="document" >
+<!-- Modal content-->
+    <div class="modal-content" style="margin-right: 5px; margin-left: 3px;">
+       <div class="modal-header popup-titlebar" layout="row">
+        <div flex="10"  class="fa fa-arrow-left back_arrow" data-dismiss="modal"> </div>
+        <div flex class="details-heder-title">{{business.bizName}}</div>
+       </div>
+       <div id="myDiv" class="modal-body"  >
+       		<ng-include src="'/js/modules/ContentList/views/details.html'"></ng-include>
+        </div>
+       <!--  <div class="modal-footer">
+          <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Close</button>
+       	</div> -->
+    </div>
+  </div>
+</div>

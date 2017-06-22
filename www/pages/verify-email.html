@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="verifyEmail">
+	<head>
+	  <title>Starlly - Email Verification</title>
+	  <meta charset="utf-8">
+	  <link rel="stylesheet" type="text/css" href="../css/libs/min/bootstrap.min.css">
+	  <link rel="stylesheet" type="text/css" href="../css/libs/min/angular-material.min.css">
+	  <!-- <link rel="stylesheet" type="text/css" href="../css/ionicons.min.css"> -->
+	  <link rel="stylesheet" type="text/css" href="../css/libs/min/font-awesome.min.css">
+	  <link rel="stylesheet" type="text/css" href="../css/core.css">
+	  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+	  <style type="text/css">
+	  	.message {
+	  		margin: 50px;
+		    padding: 24px;
+		    color: #00529B;
+		    background-color: #BDE5F8;
+	  	}
+	  </style>
+	</head>
+	<body ng-controller="verifyEmailCtrl">
+		<div>
+			<p class="message" ng-bind="processMessage"></p>
+		</div>
+	    <!--Scripts are loading from here-->
+	    <!-- JQuery Dependency -->
+	    <script type="text/javascript" src="../js/libs/min/jquery.min.js"></script>
+	    <!-- Bootstrap Dependency -->
+	  	<script type="text/javascript" src="../js/libs/min/bootstrap.min.js"></script>
+	  	<!-- Angular Dependencies -->
+	    <script type="text/javascript" src="../js/libs/min/angular.min.js"></script>
+		<script type="text/javascript" src="../js/libs/min/angular-messages.min.js"></script>
+		<script type="text/javascript" src="../js/libs/min/angular-animate.min.js"></script>
+		<script type="text/javascript" src="../js/libs/min/angular-aria.min.js"></script>
+		<!-- Angular-material Dependency -->
+		<script type="text/javascript" src="../js/libs/min/angular-material.min.js"></script>
+		<!-- Developer Script -->
+		<!-- Common Utils -->
+		<script type="text/javascript" src="../js/common/utils.js"></script>
+		<!-- Constants -->
+		<script type="text/javascript" src="../js/constants/constants.js"></script>
+		<script type="text/javascript" src="../js/services/errorService.js"></script>
+		<script type="text/javascript" src="../js/services/configHttpReq.js"></script>
+		<script type="text/javascript">
+			angular.module('verifyEmail', ['ngMaterial', 'ConfigHttpReq', 'Errors'])
+			.controller('verifyEmailCtrl', ['$scope', '$http', 'configHttpReqService', 
+				function($scope, $http, configHttpReqService) {
+					function getParameterByName(name, url) {
+					    if (!url) url = window.location.href;
+					    name = name.replace(/[\[\]]/g, "\\$&");
+					    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+					        results = regex.exec(url);
+					    if (!results) return null;
+					    if (!results[2]) return '';
+					    return decodeURIComponent(results[2].replace(/\+/g, " "));
+					}
+					function closewindow() {
+						setTimeout(function() {
+							window.location.href = window.location.href.split(/(https?:\/\/[^\/]+)/gi)[1];
+						}, 3000);
+					}
+					function init() {
+						$scope.processMessage = 'Verifying.......';
+						var verifyEmail = getParameterByName('email');
+						var verifyAccount = getParameterByName('username');
+						if( verifyEmail ){
+							var updateHeaders = angular.copy(Constants.Global.DefaultHTTPHeader);
+							updateHeaders.email = verifyEmail;
+							updateHeaders.username = verifyAccount;
+							$http({
+								url: Constants.URLS.VERIFYRESTOACCOUNT,
+								method: Constants.Global.METHOD.PUT,
+								dataType: Constants.Global.DATATYPE,
+								headers: updateHeaders
+							}).success(function(respData, status, headers, config) {
+								$scope.processMessage = respData.status;
+								closewindow();
+							}).error(function(errorData, status, headers, config) {
+								$scope.processMessage = errorData.status;
+							});
+						}else{
+							$scope.processMessage = 'Email Address not found!!!';
+						}
+					}
+					init();
+				}
+			]);
+		</script>
+	</body>
+</html>

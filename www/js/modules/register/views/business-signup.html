@@ -1,0 +1,339 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<!-- <md-content> -->
+<div class="restaurant-signup" style="padding-bottom: 100px;">
+
+    <div ng-class="{'container-disable': loadingSpinnerInSignUp}">
+        <section class="page-wrapper">
+            <h3 class="title">Join Parlours Platform </h2>
+        </section>
+    </div>
+    <div class="container resSignUp-body ng-class="{'container-disable': loadingSpinnerInSignUp}" loadingSpinnerInSignUp={{loadingSpinnerInSignUp}}>
+      <form name="signupForm">
+        <md-card>
+            <div id="inputContainer" class="inputDemo" ng-cloak>
+                <md-content layout-padding="">
+        <!--**********************************************************************************************************************************-->
+                                                            <!--RESTAURANT NAME-->
+        <!--**********************************************************************************************************************************-->
+          <!--START: Business Name-->
+                <div class="md-block header">
+                  <h4 class="title">Business Name</h4>
+                </div>
+                <div style="width:100%;">
+                    <md-input-container class="md-block">
+                        <label>Business Name</label>
+                        <input required minlength="3" maxlength="100" name="bizName" ng-model="signup.bizName" ng-pattern="/^[a-zA-Z0-9 ]*$/">
+                        <div class="error-message-block" err="{{signupForm.bizName.$error}}" ng-messages="signupForm.bizName.$error">
+                            <div ng-if="signupForm.bizName.$error.required" ng-message="required">This is required</div>
+                            <div ng-if="signupForm.bizName.$error.minlength" ng-message="minlength">Min 3 char should be.</div>
+                            <div ng-if="signupForm.bizName.$error.maxlength" ng-message="maxlength">Max 100 char</div>
+                            <!-- <div ng-if="signupForm.bizName.$error.pattern" ng-message="pattern">Please enter alphanumeric only</div> -->
+                        </div>
+                    </md-input-container>
+                </div>  
+          <!--END: Business Name-->
+        <!--**********************************************************************************************************************************-->
+                                                            <!--PERSONAL INFORMATION-->
+        <!--**********************************************************************************************************************************-->
+                       <div class="md-block header">
+                          <h4 class="title">Primary Contact Person</h4>
+                       </div>
+                       <div layout-gt-sm="row">
+                           <md-input-container class="md-block" flex-gt-sm="">
+                              <label>First Name</label>
+                              <input required minlength="3" maxlength="100" name="firstName" ng-model="signup.contact_person_fname">
+                              
+                              <div class="error-message-block" ng-messages="signupForm.firstName.$error">
+                                 <div ng-if="signupForm.firstName.$error.required" ng-message="required">This is required</div>
+                                 <div ng-if="signupForm.firstName.$error.minlength" ng-message="minlength">Min 3 char should be.</div>
+                                 <div ng-if="signupForm.firstName.$error.maxlength" ng-message="maxlength">Max 100 char</div>
+                              </div>
+                              
+                           </md-input-container>
+                           <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Last Name</label>
+                              <input required name="lastName" ng-model="project.contact_person_lname">
+                              
+                              <div class="error-message-block" ng-messages="projectForm.lastName.$error">
+                                 <div ng-message="required">This is required</div>
+                              </div>
+                              
+                           </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                           <md-input-container class="md-block" flex-gt-sm="">
+                               <label>Email</label>
+                               <input required type="email" ng-model="signup.email" name="email" minlength="5" maxlength="100"  ng-pattern="/^.+@.+\..+$/" />
+                             
+                              <div class="error-message-block"  ng-show="signupForm.email.$error.required" ng-message="required">
+                                    This is required
+                               </div>
+                              <div class="error-message-block" ng-show="signupForm.email.$error.email" ng-message="pattern">
+                                    Your email must be between 10 and 100 characters long and should be a valid email address
+                              </div>
+                           </md-input-container>
+                           <md-input-container class="md-block" flex-gt-sm="">
+                                <label>Contact No.</label>
+                                <input required type="number" name="contactNumber" ng-model="signup.phone" maxlength="10" minlength="10"/>
+                                <div class="error-message-block" ng-messages="signupForm.contactNumber.$error">
+                                     <div ng-if="signupForm.contactNumber.$error.required" ng-message="required">This is required</div>
+                                     <div ng-if="signupForm.contactNumber.$error.minlength" ng-message="minlength">Phone No should be 10 digit</div>
+                                     <div ng-if="signupForm.contactNumber.$error.maxlength" ng-message="maxlength">Phone No should be 10 digit</div>
+                                  </div>
+                           </md-input-container>
+                        </div>
+        <!--**********************************************************************************************************************************-->
+                                                            <!--CREDENTIALS-->
+        <!--**********************************************************************************************************************************-->
+                        <div class="md-block header">
+                          <h4 class="title">Credentials</h4>
+                        </div>
+                        <div layout-gt-sm="row">
+                           <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Username</label>
+                              <input required name="userName" ng-model="signup.userName" ng-pattern="/^[a-zA-Z0-9]*$/" ng-blur="validateBizUserId(signup.userName)">
+                              
+                              <div class="error-message-block" ng-messages="signupForm.userName.$error">
+                                 <div ng-if="signupForm.userName.$error.required" ng-message="required">This is required</div>
+                                 <div ng-if="signupForm.userName.$error.minlength" ng-message="minlength">Min 3 char should be.</div>
+                                 <div ng-if="signupForm.userName.$error.maxlength" ng-message="maxlength">Max 100 char</div>
+                                 <div ng-if="signupForm.userName.$error.pattern" ng-message="pattern">Please enter alphanumeric only</div>
+                              </div>
+                              
+                              <div class="error-message-block" ng-show="isBizUserIdExists">
+                                This User name already exists, please try different one.
+                              </div>
+                           </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Password</label>
+                              <input required type="password" name="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" ng-model="signup.password">
+                              
+                              <div class="error-message-block" ng-messages="signupForm.password.$error">
+                                 <div ng-if="signupForm.password.$error.required" ng-message="required">This is required.</div>
+                                 <div ng-if="signupForm.password.$error.pattern" ng-message="required">Password should be(Min. one UpperCase, Min. one LowerCase, Min. one Number/SpecialChar and min 8 Chars).</div>
+                              </div>
+                              
+                           </md-input-container>
+                           <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Confirm Password</label>
+                              <input required compare-to="signup.password" type="password" name="confirmPassword" ng-model="signup.confirmPassword">
+                              
+                              <div class="error-message-block" ng-messages="signupForm.confirmPassword.$error">
+                                 <div ng-if="signupForm.confirmPassword.$error.required" ng-message="required">This is required.</div>
+                                 <div ng-if="signupForm.confirmPassword.$error.compareTo" ng-message="compareTo">Password mismatch.</div>
+                              </div>
+                              
+                           </md-input-container>
+                        </div>
+        <!--**********************************************************************************************************************************-->
+                                                            <!--ADDRESS AND LOCATION-->
+        <!--**********************************************************************************************************************************-->
+                        <div class="md-block header">
+                          <h4 class="title">Address and Location</h4>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Address Line 1</label>
+                              <input required name="address1" ng-model="signup.address1">
+                              
+                              <div class="error-message-block" class="error-message-block" ng-messages="signupForm.address1.$error">
+                                 <div ng-message="required">This is required.</div>
+                              </div>
+                              
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Address Line 2</label>
+                              <input name="address2" ng-model="signup.address2">
+                                                  
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Locality</label>
+                              <input required name="locality" ng-model="signup.locality">
+                                <div class="error-message-block" ng-messages="signupForm.locality.$error">
+                                 <div ng-message="required">This is required.</div>
+                              </div>
+                           </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm="">
+                              <label>City</label>
+                              <input required name="city" ng-model="signup.city">
+                              
+                              <div class="error-message-block" ng-messages="signupForm.city.$error">
+                                 <div ng-message="required">This is required.</div>
+                              </div>
+                              
+                           </md-input-container>
+                           <md-input-container class="md-block" flex-gt-sm="">
+                              <label>Pin</label>
+                              <input required type="number" minlength="6" maxlength="6" name="pin" ng-model="signup.pin" ng-pattern="/^\d+$/">
+                              
+                              <div class="error-message-block" ng-messages="signupForm.pin.$error">
+                                 <div ng-if="signupForm.pin.$error.required" ng-message="required">This is required</div>
+                                 <div ng-if="signupForm.pin.$error.minlength" ng-message="minlength">Pin code should be 6 digit</div>
+                                 <div ng-if="signupForm.pin.$error.maxlength" ng-message="maxlength">Pin code should be 6 digit</div>
+                                 <div ng-if="signupForm.pin.$error.pattern" ng-message="pattern">Please enter numeric only</div>
+                                 <div ng-if="signupForm.pin.$error.number" ng-message="pattern">Please enter numeric only</div>
+                              </div>
+                           </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm="">
+                              <label>State</label>
+                              <md-select required name="state" ng-model="signup.state">
+                                <md-option ng-repeat="state in states" value="{{state}}">{{state}}</md-option>
+                              </md-select>
+                              <div class="error-message-block" ng-messages="signupForm.state.$error">
+                                 <div ng-message="required">This is required.</div>
+                              </div>
+                           </md-input-container>
+                           
+                        </div>
+                        
+        <!--**********************************************************************************************************************************-->
+                                                            <!-- LOAD GOOGLE MAP VIEW -->
+        <!--**********************************************************************************************************************************-->
+                        <ng-include src="'/js/modules/common/views/gmap.html'"></ng-include>
+        <!--**********************************************************************************************************************************-->
+                                                            <!--BUSINESS TYPE-->
+        <!--**********************************************************************************************************************************-->
+                        <div class="md-block header">
+                          <h4 class="title">Business Type</h4>
+                        </div>
+                        <div layout-gt-sm="row" layout-wrap flex>
+                            <div flex-gt-sm="50" ng-repeat="biz_type in biz_types">
+                                <md-checkbox class="green" ng-model="biz_type.selected" ng-change="changeOnBizType(biz_type)">{{biz_type.name}}</md-checkbox><br/>
+                            </div>
+                        </div>
+                        <md-input-container class="md-block header">
+                          <h4 class="title">Services available for</h4>
+                        </md-input-container>
+                        <div layout-gt-sm="row">
+                            <md-input-container flex-gt-sm="">
+                            <md-radio-group class="md-primary" layout="row" ng-model="signup.service_type">
+                                <md-radio-button ng-repeat="type in serviceType" ng-value="type.value" ng-class="{'md-align-top-left': $index==1}">{{type.label}}</md-radio-button>
+                            </md-radio-group>
+                            </md-input-container>
+                        </div>
+                        <div class="md-block header">
+                          <h4 class="title">Available Services</h4>
+                        </div>
+                        <div layout-gt-sm="row" layout-wrap flex>
+                            <div flex-gt-sm="50" ng-repeat="offered_service in offered_services">
+                                <md-checkbox class="green" ng-model="offered_service.selected" ng-change="changeOnOfferServices(offered_service)">{{offered_service.name}}</md-checkbox><br/>
+                            </div>
+                        </div>
+                        <div class="md-block header">
+                          <h4 class="title">Add Business Hours</h4>
+                        </div>
+                        <div layout-gt-sm="row" layout-wrap flex>
+                            <div>
+                              <md-input-container>
+                                <md-select  name="week" ng-model="weekday" placeholder="Select a week day">
+                                  <md-option ng-repeat="day in weekdays" value="{{day.name}}">{{day.name}}</md-option>
+                                </md-select>
+                              </md-input-container>
+                            </div>
+                            <div> Start Time
+                            <md-input-container>
+                              <input type="time" id="startTime" name="start" ng-model="start_time"
+                                   placeholder="HH:mm" min="00:00" max="24:00"  required/>
+                              <div role="alert">
+                               <span class="error" ng-show="addHours.start.$error.required">
+                                  Required!</span>
+                                 <span class="error" ng-show="addHours.input.$error.time">
+                                     Not a valid date!</span>
+                               </div>
+                            </md-input-container>
+                            </div>
+                            <div> End Time
+                            <md-input-container>
+                              <input type="time" id="endTime" name="end" ng-model="end_time"
+                                   placeholder="HH:mm" min="00:00" max="24:00"  required/>
+                               <div role="alert">
+                                <span class="error" ng-show="addHours.end.$error.required">
+                                  Required!</span>
+                                 <span class="error" ng-show="addHours.input.$error.time">
+                                     Not a valid date!</span>
+                               </div>
+                            </md-input-container>
+                            </div>
+                            <div>
+                              <md-input-container>
+                                <md-checkbox class="green" ng-model="isHoliday" ng-change="setHoliday(isHoliday)">Holiday</md-checkbox><br/>
+                              </md-input-container>
+                            </div>
+                            <div>
+                              <md-button ng-click="addWorkHours()"> Add</md-button>
+                            </div>
+                        </div>
+                        <div class="md-block header">
+                          <h4 class="title">Business Hours</h4>
+                        </div>
+                       <!--  <div ng-repeat="daydetails in signup.business_hours | orderBy:'weekday' ">
+                            <span> {{daydetails.weekday}} </span>
+                        </div> -->
+                        <md-table-container ng-show="signup.business_hours.length > 0" flex-gt-xs="50">
+                          <table md-table  md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+                             <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                              <tr md-row>
+                                <th md-column md-order-by="weekday" ><span class="fnt">Week Day</span></th>
+                                <th md-column md-order-by="start_time"><span class="fnt">Start Time</span></th>
+                                <th md-column md-numeric md-order-by="End Time" md-desc><span class="fnt">End Time</span></th>
+                                <th md-column md-numeric md-order-by="is_holiday"><span class="fnt">Holiday</span></th>
+                              </tr>
+                            </thead>
+                            <tbody md-body >
+                            <tr md-row md-select="" md-on-select=""  ng-repeat="daydetails in signup.business_hours | orderBy:'weekday'">
+                                <td md-cell >{{daydetails.weekday }}</td>
+                                <td md-cell>{{daydetails.start_time | date:'HH:mm'}}</td>
+                                <td md-cell>{{daydetails.end_time | date:'HH:mm'}}</td>
+                                <td md-cell>{{daydetails.is_holiday ? 'Yes' : 'No'}} </td>
+                               <!--  <td><md-checkbox class="green" ng-model="is_holiday" ng-disabled="true" aria-label="Disabled"> </md-checkbox> </td> -->
+                            </tr>
+                            </tbody>
+                          </table>
+                        </md-table-container>
+                        
+        <!--**********************************************************************************************************************************-->
+                                                            <!--UPLOAD IMAGE-->
+        <!--**********************************************************************************************************************************-->
+                        <ng-include src="'/js/modules/common/views/uploadImage.html'"></ng-include>
+        <!--**********************************************************************************************************************************-->
+                                                            <!--CAPTCHA AND TERMS AND CONDITIONS-->
+        <!--**********************************************************************************************************************************-->
+                        <ng-include src="'/js/modules/common/views/captcha.html'"></ng-include>
+        <!--**********************************************************************************************************************************-->
+                                                            <!--REGISTER BUTTON-->
+        <!--**********************************************************************************************************************************-->
+                        <md-content>
+                            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                                <button type="submit" class="register-register-button" ng-click="registerUser( signupForm);">Register</button>
+                            </section>
+                        </md-content>
+                </md-content>
+            </div>
+         </md-card>
+       </form>
+    </div>
+</div>
+<!-- </md-content> -->
+  
+<!--Previw: Script for preview image-->
+<script language="javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgPrimary').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imgInp").change(function(){
+       readURL(this);
+    });
+</script>

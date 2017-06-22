@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html  ng-app="MainApp">
+    <head>
+ 
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        
+        <link rel="stylesheet" type="text/css" href="css/core.css">
+        <!-- <link rel="stylesheet" type="text/css" href="css/responsive.css"> -->
+        <link rel="stylesheet" type="text/css" href="css/libs/min/angular-material.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="css/libs/min/font-awesome.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <!-- Google Oauth library -->
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="681090375465-ghh0ppjmmbi707r8172dj7k204io6ok3">
+        <meta name="google-signin-scope" content="profile email">
+        
+        <title>Parlours Platform</title>
+    </head>
+    <body ng-controller="homeCtrl" ng-init="initiateUserObject()">
+    <header>
+        <md-toolbar layout="row" layout-padding layout-align="center">
+            <div flex="10" class="toolbar-forecolour" ng-click="openLeftMenu()">
+            <!--The left side is hidden when the screen size is larger than small -->
+            <!-- <md-button class="menu" ></md-button> -->
+            <i class="fa fa-bars" ></i>
+            </div>
+            <div flex="20" class="toolbar-forecolour">
+            <!--The right side-->
+            Parlours Platform 
+            </div>
+            <div flex align="right" class="toolbar-forecolour">
+                <i class="fa fa-search"></i>
+            </div>
+        </md-toolbar>
+    </header> 
+    <div ng-include="'js/modules/home/views/sidenav.html'"> </div> <!-- load left nav content -->
+    <div  layout-fill ng-cloak="" layout="column">  <!-- div added to fix the tab at the top of the page -->     
+         <md-tabs md-selected="selectedIndex" md-stretch-tabs="always" class="md-primary md-hue-2">
+            <md-tab ng-repeat="tab in tabs" md-on-select="navigateToContent(tab)" ng-disabled="tab.disabled" on-deselect="">
+                <md-tab-label>{{tab.title}}</md-tab-label>
+            </md-tab>
+        </md-tabs>
+       <md-content > <!-- md-content added to fix the tab at the top of the page -->
+            <div layout-align="center center" layout-padding ng-view > </div>
+        </md-content>
+        <footer flex="none" class="footer" layout-align="center center" style="min-height: 10px;">
+            <div>Copyright © 2017 Gang of three corp. All rights reserved</div>
+        </footer>
+    </div>
+
+   <!--      <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+ -->             <!-- jQuery library -->
+        <!-- JQuery Dependency -->
+        <script type="text/javascript" src="js/libs/min/jquery.min.js"></script>
+        <!-- Bootstrap Dependency -->
+        <script type="text/javascript" src="js/libs/min/bootstrap.min.js"></script>
+        <!-- Angular Dependencies -->
+        <script type="text/javascript" src="js/libs/min/angular.min.js"></script>
+        <script type="text/javascript" src="js/libs/min/angular-messages.min.js"></script>
+        <script type="text/javascript" src="js/libs/min/angular-animate.min.js"></script>
+        <script type="text/javascript" src="js/libs/min/angular-aria.min.js"></script>
+        <script type="text/javascript" src="js/libs/min/ngStorage.min.js"></script>
+        <script type="text/javascript" src="js/libs/min/angular-material.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
+        <script src="https://apis.google.com/js/plus.js?onload=init"></script>
+        <!-- Developer JS -->
+
+        <!-- App and Routes -->
+        <script type="text/javascript" src="js/modules/app.js"></script>
+        <script type="text/javascript" src="js/modules/routes.js"></script>
+        <script type="text/javascript" src="js/modules/main.js"></script>
+        
+          <!-- Services, directives, common utils -->
+        <script type="text/javascript" src="js/config/config.js"></script>
+        <script type="text/javascript" src="js/modules/common/constants.js"></script>
+        <script type="text/javascript" src="js/modules/common/errorService.js"></script>
+        <script type="text/javascript" src="js/modules/common/consumeAPIService.js"></script>
+        <script type="text/javascript" src="js/modules/common/sessionService.js"></script>
+        <script type="text/javascript" src="js/modules/common/fbService.js"></script>
+        
+        <script type="text/javascript" src="js/config/config.js"></script>
+        <script type="text/javascript" src="js/components/common/utils.js"></script>
+        <!-- <script type="text/javascript" src="js/components/constants/constants.js"></script> -->
+        <!-- <script type="text/javascript" src="js/components/services/errorService.js"></script> -->
+        <!-- <script type="text/javascript" src="js/components/services/configHttpReq.js"></script> -->
+        <!-- <script type="text/javascript" src="js/components/services/sessionService.js"></script> -->
+        
+        
+       
+        
+        <!-- Controllers -->
+        <script type="text/javascript" src="js/modules/home/controllers/home.js"></script>
+        <script type="text/javascript" src="js/modules/contentList/controllers/list.js"></script>
+        <script type="text/javascript" src="js/modules/login/controllers/login.js"></script>
+        <script type="text/javascript" src="js/modules/login/controllers/forgotPassword.js"></script>
+
+     
+    </body>
+</html>
